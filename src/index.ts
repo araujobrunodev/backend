@@ -7,7 +7,7 @@ import controllers from "./controllers"
 
 const PORT = process.env.PORT ?? 3000
 
-const bucket = new BucketFiles("./public", { indexFile: "index.html" })
+const bucket = new BucketFiles("../my-vue-app/dist", { indexFile: "index.html" })
 const server = http.createServer((request, response) => {
   request.on("end", () => {
     bucket.serve(request, response)
