@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html {
+      width: 100vw;
+      height: 100vh;
+    }
+
+    body {
+      margin: 0;
+      width: inherit;
+      height: inherit;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #app {
+      width: 100%;
+      height: 100%;
+    }
+
+    #console {
+      width: 100%;
+      height: 50vh;
+      margin: 0;
+    }
+
+    #inputCommand {
+      width: 100vw;
+      height: 2rem;
+    }
+
+    #command {
+      height: 2rem;
+      border: unset;
+      padding: .2rem .5rem;
+      width: calc(100vw - (.5rem * 2));
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <pre id="console"></pre>
+
+    <input id="command" list="historyCommands" type="text" autofocus autocomplete="false">
+
+    <datalist id="historyCommands">
+      <option value='{ "type": "BROADCAST", "msg": "TESTING" }'>
+      <option value='connect_server'>
+    </datalist>
+
+  </div>
+  <script>
+    const WEBSOCKET_ADDRESS = `ws://${document.location.host}`
+    let ws;
+
+    function connectWebSocket(address) {
+      const websocket = new WebSocket(address);
+
+      websocket.onopen = () => {
+        console.info()
+        document.getElementById("console").innerText += `\n ✅ Connected to ws://${document.location.host}`
+      }
+
+      websocket.onerror = (error) => {
+        document.getElementById("console").innerText += "\n ❌ " + error
+      }
+
+      websocket.onclose = (e) => {
+        document.getElementById("console").innerText += `\n ❌ Conection closed: ${e.code} (Reason: ${e.reason || "¯\\_(ツ)_/¯"})`
+      }
+
+      websocket.onmessage = (message) => {
+        document.getElementById("console").innerText += "\n 👈🏾: " + message.data
+      }
+
+      return websocket;
+    }
+
+    document.getElementById("command").addEventListener("keyup", (event) => {
+      event.preventDefault()
+
+      if (event.keyCode !== 13) return;
+
+      if (event.target.value.trim() === "connect_server") {
+        document.getElementById("console").innerText += "\n\n " + `Connecting...`;
+        ws = connectWebSocket(WEBSOCKET_ADDRESS);
+        return;
+      }
+
+      if (ws.readyState === ws.CLOSED) {
+        document.getElementById("console").innerText += "\n\n ❌ " + `Not connected`;
+        return;
+      }
+
+      document.getElementById("console").innerText += "\n\n 👉🏾: " + event.target.value;
+      ws.send(event.target.value)
+      document.getElementById("historyCommands").innerHTML += `<option value="${event.target.value}">`;
+      event.target.value = ""
+    })
+
+    document.getElementById("console").innerText += "\n\n " + `Connecting...`;
+    ws = connectWebSocket(WEBSOCKET_ADDRESS)
+  </script>
+</body>
+
+</html>
