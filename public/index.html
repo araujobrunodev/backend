@@ -58,7 +58,7 @@
 
   </div>
   <script>
-    const WEBSOCKET_ADDRESS = `ws://${document.location.host}`
+    const WEBSOCKET_ADDRESS = `wss://${document.location.host}`
     let ws;
 
     function connectWebSocket(address) {
@@ -66,7 +66,7 @@
 
       websocket.onopen = () => {
         console.info()
-        document.getElementById("console").innerText += `\n ✅ Connected to ws://${document.location.host}`
+        document.getElementById("console").innerText += `\n ✅ Connected to wss://${document.location.host}`
       }
 
       websocket.onerror = (error) => {
