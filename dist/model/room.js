@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.AllRooms = exports.createRoom = void 0;
+// contain all roons;
+var AllRooms = { rooms: [] };
+exports.AllRooms = AllRooms;
+/*
+----: create a room
+*/
+function createRoom(uuid1, uuid2) {
+    AllRooms.rooms.push({ room: [uuid1, uuid2] });
+}
+exports.createRoom = createRoom;
+
+//# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1vZGVsL3Jvb20udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7O0FBQ0EscUJBQXFCO0FBQ3JCLElBQUksUUFBUSxHQUFZLEVBQUMsS0FBSyxFQUFDLEVBQUUsRUFBQyxDQUFDO0FBVWhCLDRCQUFRO0FBUjNCOztFQUVFO0FBRUYsU0FBUyxVQUFVLENBQUMsS0FBYSxFQUFFLEtBQWE7SUFDNUMsUUFBUSxDQUFDLEtBQUssQ0FBQyxJQUFJLENBQUMsRUFBQyxJQUFJLEVBQUMsQ0FBQyxLQUFLLEVBQUMsS0FBSyxDQUFDLEVBQUMsQ0FBQyxDQUFBO0FBQzdDLENBQUM7QUFFTyxnQ0FBVSIsImZpbGUiOiJtb2RlbC9yb29tLmpzIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgcm9vbVR5cGUgfSBmcm9tIFwiLi4vdHlwZXMvcm9vbVR5cGVcIjtcclxuLy8gY29udGFpbiBhbGwgcm9vbnM7XHJcbnZhciBBbGxSb29tczpyb29tVHlwZSA9IHtyb29tczpbXX07XHJcblxyXG4vKlxyXG4tLS0tOiBjcmVhdGUgYSByb29tIFxyXG4qL1xyXG5cclxuZnVuY3Rpb24gY3JlYXRlUm9vbSh1dWlkMTogc3RyaW5nLCB1dWlkMjogc3RyaW5nKTp2b2lkIHtcclxuICAgIEFsbFJvb21zLnJvb21zLnB1c2goe3Jvb206W3V1aWQxLHV1aWQyXX0pXHJcbn1cclxuXHJcbmV4cG9ydCB7Y3JlYXRlUm9vbSxBbGxSb29tc307Il19
