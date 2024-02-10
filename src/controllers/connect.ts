@@ -10,7 +10,7 @@ export default (manager:Manager) => {
         saveClient({
             name:msg.player,
             uuid:context.originId,
-            available:false
+            available:true
         });
 
         tempPlayer.uuids.push(context.originId);
