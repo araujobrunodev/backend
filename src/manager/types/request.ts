@@ -34,6 +34,8 @@ type changePermission = Payload<"change-permission", {
   randomRoom: boolean
 }>
 
+type availableList = Payload<"available-list", {id:string}>
+
 export type Requests = QueuePayloads<[
   ExamplePayload,
   Connect,
@@ -46,5 +48,6 @@ export type Requests = QueuePayloads<[
   State,
   Tie,
   popupPermission,
-  changePermission
+  changePermission,
+  availableList
 ]>
