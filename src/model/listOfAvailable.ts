@@ -12,7 +12,8 @@ interface AvailableList {
     player: PlayerAvailable,
     deepKey: {
         iv: Buffer,
-        key: Buffer
+        key: Buffer,
+        tag: Buffer
     }
 }
 
@@ -30,7 +31,8 @@ function addPlayerAvailable (player: PlayerAvailable) {
         }, 
         deepKey: {
             iv: Buffer.alloc(16),
-            key: Buffer.alloc(32)
+            key: Buffer.alloc(32),
+            tag: Buffer.alloc(0)
         }
     })
 

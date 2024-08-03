@@ -8,10 +8,8 @@ var Clients: playerProperty[] = [];
 */
 
 function saveClient(client: playerProperty): any {
-    if (Clients.length == 0) {
-        console.log("not found any clients into database");
+    if (Clients.length == 0) 
         Clients.push(client)
-    }
     else {
         let isCompare = findPlayer(client.uuid) as playerProperty;
 

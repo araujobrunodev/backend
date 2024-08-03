@@ -13,9 +13,11 @@ function encrypt (index: number) {
         player.deepKey.key,
         player.deepKey.iv
     );
-
+    
     let ciphered = cipher.update(player.player.id,"utf-8","hex");
     ciphered += cipher.final("hex")
+    
+    player.deepKey.tag = cipher.getAuthTag()
     player.player.id = ciphered;
 }
 

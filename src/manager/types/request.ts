@@ -27,6 +27,13 @@ type popupPermission = Payload<"pop-up_permission", {
   randomRoom: boolean
 }>
 
+type changePermission = Payload<"change-permission", {
+  nick: string,
+  id: string,
+  inviteStrangers: boolean,
+  randomRoom: boolean
+}>
+
 export type Requests = QueuePayloads<[
   ExamplePayload,
   Connect,
@@ -38,5 +45,6 @@ export type Requests = QueuePayloads<[
   Marked,
   State,
   Tie,
-  popupPermission
+  popupPermission,
+  changePermission
 ]>
