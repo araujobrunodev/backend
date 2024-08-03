@@ -7,6 +7,7 @@ import { roomContainer } from "@/types/roomType";
 import exit from "@/types/exitType";
 import removeRoom from "../match/removeRoom";
 import findPlayer from "./player";
+import { listOfAvailable } from "../listOfAvailable";
 
 interface IgnoreClients {
     uuid: string,
@@ -69,7 +70,23 @@ function isPlayerAvailable(players: playerProperty[]) {
 
     if (available.length != 0) UpdateDatabaseClients(available, { type: "available", value: true });
 
-    if (unAvailable.length != 0) UpdateDatabaseClients(unAvailable, { type: "available", value: false });
+    if (unAvailable.length != 0) {
+        unAvailable.forEach(available => {
+            let findPlayer = false;
+
+            listOfAvailable.forEach((perfil, index) => {
+                if (findPlayer) return;
+                
+                if (perfil.player.nick == available.name) {
+                    console.log("remove player:",listOfAvailable[index].player.nick)
+                    listOfAvailable.splice(index)
+                    return findPlayer = true
+                }
+            })
+        })
+
+        UpdateDatabaseClients(unAvailable, { type: "available", value: false })
+    };
 }
 
 export default isPlayerAvailable;

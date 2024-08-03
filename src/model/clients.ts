@@ -13,12 +13,8 @@ function saveClient(client: playerProperty): any {
     else {
         let isCompare = findPlayer(client.uuid) as playerProperty;
 
-        if (isCompare == undefined) {
-            console.log("yes")
-            Clients.push(client)
-        }
-        else
-            console.log("client existed into database");
+        if (isCompare == undefined) Clients.push(client)
+        else console.log("client existed into database");
     }
 }
 
