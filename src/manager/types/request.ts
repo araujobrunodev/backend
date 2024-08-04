@@ -20,13 +20,6 @@ type State = Payload<"STATE",{winner:string}>
 
 type Tie = Payload<"TIE",{value:string}>
 
-type popupPermission = Payload<"pop-up_permission", {
-  nick: string,
-  uuid: string,
-  inviteStrangers: boolean,
-  randomRoom: boolean
-}>
-
 type changePermission = Payload<"change-permission", {
   nick: string,
   id: string,
@@ -47,7 +40,6 @@ export type Requests = QueuePayloads<[
   Marked,
   State,
   Tie,
-  popupPermission,
   changePermission,
   availableList
 ]>
