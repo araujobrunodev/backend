@@ -19,8 +19,6 @@ export default (manager: Manager) => {
             if (room === undefined) {
                 createRoom(context.originId, msg.uuid);
 
-                console.log("accepted your invite");
-
                 context.send("ACCEPTED", {
                     nick: player1.name,
                     uuid: player1.uuid,
@@ -28,8 +26,6 @@ export default (manager: Manager) => {
             } else {
                 if (changeRoom(player1.uuid) == true) {
                     createRoom(context.originId, msg.uuid);
-
-                    console.log("accepted your invite");
 
                     context.send("ACCEPTED", {
                         nick: player1.name,

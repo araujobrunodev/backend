@@ -2,13 +2,29 @@ import Manager from "@/manager";
 import { saveClient } from "@/model/clients";
 import PingOrPongReceive from "@/types/pingReceive";
 import tempPlayer from "@/types/tempPlayer";
+import { Clients } from "@/model/clients";
+import { createRandom } from "@/model/tools/createRandom";
 
 export default (manager:Manager) => {
     manager.on("CONNECT",(context,msg) => {
-        context.send("CONNECTED",{uuid: context.originId},context.originId);
+        let nick = msg.player
+
+        Clients.forEach((client) => {
+            let lenthMax = Math.abs(nick.length - 7)
+            
+            if (client.name == nick) {
+                if (lenthMax == 0) {
+                    nick = (nick.slice(0, nick.length - 2))
+                    nick += createRandom(2)
+                } else 
+                    nick += createRandom(lenthMax)
+            }
+        })
+
+        context.send("CONNECTED",{uuid: context.originId, newNick: nick},context.originId);
         
         saveClient({
-            name:msg.player,
+            name:nick,
             uuid:context.originId,
             available:true
         });

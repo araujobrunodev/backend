@@ -78,7 +78,6 @@ function isPlayerAvailable(players: playerProperty[]) {
                 if (findPlayer) return;
                 
                 if (perfil.player.nick == available.name) {
-                    console.log("remove player:",listOfAvailable[index].player.nick)
                     listOfAvailable.splice(index)
                     return findPlayer = true
                 }

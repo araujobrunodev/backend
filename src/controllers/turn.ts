@@ -11,7 +11,7 @@ export default (manager: Manager) => {
         let begin:boolean;
         let playerIsAvailable = false;
 
-        if (currentRoom == undefined) return console.log("room return undefined");
+        if (currentRoom == undefined) return;
 
         currentRoom.room.map((uuid) => {
             let Player = findPlayer(uuid) as playerProperty;

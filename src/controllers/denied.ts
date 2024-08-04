@@ -10,10 +10,7 @@ export default (manager:Manager) => {
         if (client1 != undefined && client2 != undefined) {
             if (!client1.available || !client2.available) return;
             
-            console.log("denied the invite");
-            
             context.send("DENIED",client1.name as string ,client2.uuid);
-        } else
-            console.log("don't find client");
+        }
     })
 }

@@ -1,7 +1,7 @@
 import { Payload, QueuePayloads } from "./core";
 
 type ExamplePayload = Payload<"BROADCAST", string>
-type Connected = Payload<"CONNECTED",{uuid: string}> 
+type Connected = Payload<"CONNECTED",{uuid: string, newNick: string}> 
 type Invite = Payload<"INVITE",{nick: string,uuid:string,value: string}>
 type Accepted = Payload<"ACCEPTED",{nick:string,uuid:string}>
 type Denied = Payload<"DENIED",string>
