@@ -5,9 +5,16 @@ import changeRoom from "@/model/match/changeRoom";
 import { playerProperty } from "@/types/playerType";
 import findRoom from "@/model/match/findRoom";
 import { roomContainer } from "@/types/roomType";
+import { listOfAvailable } from "@/model/listOfAvailable";
+import decrypt from "@/model/tools/decrypt";
 
 export default (manager: Manager) => {
     manager.on("ACCEPTED", (context, msg) => {
+        listOfAvailable.forEach((available, index) => {
+            if (msg.uuid == available.player.id) 
+                return msg.uuid = decrypt(index)
+        })
+
         let player1 = findPlayer(context.originId) as playerProperty;
         let player2 = findPlayer(msg.uuid) as playerProperty;
 

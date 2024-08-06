@@ -29,6 +29,8 @@ type changePermission = Payload<"change-permission", {
 
 type availableList = Payload<"available-list", {id:string}>
 
+type inviteStranger = Payload<"invite-stranger",{strangerID: string, yourUUID: string, yourNick: string}>
+
 export type Requests = QueuePayloads<[
   ExamplePayload,
   Connect,
@@ -41,5 +43,6 @@ export type Requests = QueuePayloads<[
   State,
   Tie,
   changePermission,
-  availableList
+  availableList,
+  inviteStranger
 ]>
