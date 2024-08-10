@@ -16,10 +16,12 @@ export default (manager: Manager) => {
 
             if (uuid == msg.id) return;
 
-            availables.push({
-                nick: perfil.player.nick,
-                uuid: perfil.player.id
-            })
+            if (perfil.player.inviteStrangers) {
+                availables.push({
+                    nick: perfil.player.nick,
+                    uuid: perfil.player.id
+                })
+            }
         })
 
         context.send("list-of-available", availables, msg.id)

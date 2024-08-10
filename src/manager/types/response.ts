@@ -12,6 +12,7 @@ type State = Payload<"STATE",{winner:string,loser:string}>
 type Tie = Payload<"TIE",{value:string}>
 type Exit = Payload<"EXIT",{nick:string,value:string}>
 type sendList = Payload<"list-of-available",{nick:string,uuid:string}[]>
+type InvitedByRandomRoom = Payload<"invited-by-random-room",{uuid:string}>
 
 export type Responses= QueuePayloads<[
   ExamplePayload,
@@ -25,5 +26,6 @@ export type Responses= QueuePayloads<[
   State,
   Tie,
   Exit,
-  sendList
+  sendList,
+  InvitedByRandomRoom
 ]>
