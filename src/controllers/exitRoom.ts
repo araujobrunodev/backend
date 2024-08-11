@@ -5,8 +5,6 @@ export default (manager:Manager) => {
     setInterval(() => {
         if (!exit.state) return;
 
-        console.log(exit.player.name + " left the room");
-
         exit.room.map((uuid) => {
             manager.send("EXIT",{
                 nick:exit.player.name,

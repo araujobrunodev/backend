@@ -5,9 +5,16 @@ import changeRoom from "@/model/match/changeRoom";
 import { playerProperty } from "@/types/playerType";
 import findRoom from "@/model/match/findRoom";
 import { roomContainer } from "@/types/roomType";
+import { listOfAvailable } from "@/model/listOfAvailable";
+import decrypt from "@/model/tools/decrypt";
 
 export default (manager: Manager) => {
     manager.on("ACCEPTED", (context, msg) => {
+        listOfAvailable.forEach((available, index) => {
+            if (msg.uuid == available.player.id) 
+                return msg.uuid = decrypt(index)
+        })
+
         let player1 = findPlayer(context.originId) as playerProperty;
         let player2 = findPlayer(msg.uuid) as playerProperty;
 
@@ -19,8 +26,6 @@ export default (manager: Manager) => {
             if (room === undefined) {
                 createRoom(context.originId, msg.uuid);
 
-                console.log("accepted your invite");
-
                 context.send("ACCEPTED", {
                     nick: player1.name,
                     uuid: player1.uuid,
@@ -28,8 +33,6 @@ export default (manager: Manager) => {
             } else {
                 if (changeRoom(player1.uuid) == true) {
                     createRoom(context.originId, msg.uuid);
-
-                    console.log("accepted your invite");
 
                     context.send("ACCEPTED", {
                         nick: player1.name,

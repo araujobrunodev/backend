@@ -1,5 +1,7 @@
 import Manager from "@/manager";
+import { listOfAvailable } from "@/model/listOfAvailable";
 import findRoom from "@/model/match/findRoom";
+import decrypt from "@/model/tools/decrypt";
 import findPlayer from "@/model/tools/player";
 import { playerProperty } from "@/types/playerType";
 import { roomContainer } from "@/types/roomType";
@@ -11,7 +13,7 @@ export default (manager: Manager) => {
         let begin:boolean;
         let playerIsAvailable = false;
 
-        if (currentRoom == undefined) return console.log("room return undefined");
+        if (currentRoom == undefined) return;
 
         currentRoom.room.map((uuid) => {
             let Player = findPlayer(uuid) as playerProperty;
@@ -33,6 +35,11 @@ export default (manager: Manager) => {
                 break;
 
             case "change":
+                listOfAvailable.forEach((available, index) => {
+                    if (msg.opponent_uuid == available.player.id) 
+                        return msg.opponent_uuid = decrypt(index)
+                })
+
                 player = findPlayer(msg.opponent_uuid) as playerProperty;
                 if (player == undefined) console.warn("player return undefined","uuid:",msg.opponent_uuid);
                 begin = false;

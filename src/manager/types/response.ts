@@ -1,7 +1,7 @@
 import { Payload, QueuePayloads } from "./core";
 
 type ExamplePayload = Payload<"BROADCAST", string>
-type Connected = Payload<"CONNECTED",{uuid: string}> 
+type Connected = Payload<"CONNECTED",{uuid: string, newNick: string}> 
 type Invite = Payload<"INVITE",{nick: string,uuid:string,value: string}>
 type Accepted = Payload<"ACCEPTED",{nick:string,uuid:string}>
 type Denied = Payload<"DENIED",string>
@@ -11,6 +11,9 @@ type Marked = Payload<"MARKED",{collumn:string,position:string,mark:string}>
 type State = Payload<"STATE",{winner:string,loser:string}>
 type Tie = Payload<"TIE",{value:string}>
 type Exit = Payload<"EXIT",{nick:string,value:string}>
+type sendList = Payload<"list-of-available",{nick:string,uuid:string}[]>
+type InvitedByRandomRoom = Payload<"invited-by-random-room",{uuid:string}>
+type NoPlayerAvailableInRandomRoom = Payload<"no-player-available-random-room">
 
 export type Responses= QueuePayloads<[
   ExamplePayload,
@@ -23,5 +26,8 @@ export type Responses= QueuePayloads<[
   Marked,
   State,
   Tie,
-  Exit
+  Exit,
+  sendList,
+  InvitedByRandomRoom,
+  NoPlayerAvailableInRandomRoom
 ]>

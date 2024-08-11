@@ -9,9 +9,7 @@ export default (manager: Manager) => {
 
         if (player1 != undefined && player2 != undefined) {
             if (!player1.available || !player2.available) return;
-            console.log("====invite====");
             context.send("INVITE", { nick: player1.name, uuid: player1.uuid, value: "invite you for a match" }, player2.uuid)
-        } else
-            console.log("can't find player id");
+        }
     })
 }

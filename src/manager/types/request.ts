@@ -20,6 +20,19 @@ type State = Payload<"STATE",{winner:string}>
 
 type Tie = Payload<"TIE",{value:string}>
 
+type InviteByRandomRoom = Payload<"invite-by-random-room",{blockPlayers: string[]}>
+
+type changePermission = Payload<"change-permission", {
+  nick: string,
+  id: string,
+  inviteStrangers: boolean,
+  randomRoom: boolean
+}>
+
+type availableList = Payload<"available-list", {id:string}>
+
+type inviteStranger = Payload<"invite-stranger",{strangerID: string, yourUUID: string, yourNick: string}>
+
 export type Requests = QueuePayloads<[
   ExamplePayload,
   Connect,
@@ -30,5 +43,9 @@ export type Requests = QueuePayloads<[
   Turn,
   Marked,
   State,
-  Tie
+  Tie,
+  changePermission,
+  availableList,
+  inviteStranger,
+  InviteByRandomRoom
 ]>
