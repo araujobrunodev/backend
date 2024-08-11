@@ -43,7 +43,8 @@ export default (manager: Manager) => {
             }
         })
 
-        context.send("INVITE", {nick: ownPlayer.nick, uuid: ownPlayer.uuid, value: "invite you for a match by random room"}, strangerPlayerIdDecrypt)
-        context.send("invited-by-random-room", {uuid: strangerPlayerIdCrypt}, context.originId)
+        if (strangerPlayerIdCrypt.length != 0) context.send("INVITE", {nick: ownPlayer.nick, uuid: ownPlayer.uuid, value: "invite you for a match by random room"}, strangerPlayerIdDecrypt)
+        if (strangerPlayerIdCrypt.length != 0) context.send("invited-by-random-room", {uuid: strangerPlayerIdCrypt}, context.originId)
+        else context.send("no-player-available-random-room",undefined,context.originId)
     })
 }

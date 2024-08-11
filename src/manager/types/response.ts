@@ -13,6 +13,7 @@ type Tie = Payload<"TIE",{value:string}>
 type Exit = Payload<"EXIT",{nick:string,value:string}>
 type sendList = Payload<"list-of-available",{nick:string,uuid:string}[]>
 type InvitedByRandomRoom = Payload<"invited-by-random-room",{uuid:string}>
+type NoPlayerAvailableInRandomRoom = Payload<"no-player-available-random-room">
 
 export type Responses= QueuePayloads<[
   ExamplePayload,
@@ -27,5 +28,6 @@ export type Responses= QueuePayloads<[
   Tie,
   Exit,
   sendList,
-  InvitedByRandomRoom
+  InvitedByRandomRoom,
+  NoPlayerAvailableInRandomRoom
 ]>
