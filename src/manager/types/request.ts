@@ -31,6 +31,8 @@ type availableList = Payload<"available-list", {id:string}>
 
 type invite = Payload<"invite",{strangerID: string, yourUUID: string, yourNick: string}>
 
+type LeaveRoom = Payload<"leave-room",{me: string, otherPlayer: string}>
+
 export type Requests = QueuePayloads<[
   ExamplePayload,
   Connect,
@@ -44,5 +46,6 @@ export type Requests = QueuePayloads<[
   changePermission,
   availableList,
   invite,
-  InviteByRandomRoom
+  InviteByRandomRoom,
+  LeaveRoom
 ]>
