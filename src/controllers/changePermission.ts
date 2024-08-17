@@ -16,14 +16,5 @@ export default (manager: Manager) => {
                 findIt = true
             }
         })
-        
-        if (!findIt) {
-            addPlayerAvailable({
-                id: msg.id,
-                inviteStrangers: msg.inviteStrangers,
-                nick: msg.nick,
-                randomRoom: msg.randomRoom
-            })
-        }
     })
 }

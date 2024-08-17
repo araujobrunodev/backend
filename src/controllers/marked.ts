@@ -1,18 +1,14 @@
 import Manager from "@/manager";
-import { listOfAvailable } from "@/model/listOfAvailable";
-import decrypt from "@/model/tools/decrypt";
+import findAvailable from "@/model/tools/findAvailable";
 
 export default (manager:Manager) => {
     manager.on("MARKED",(context,msg) => {
-        listOfAvailable.forEach((available, index) => {
-            if (msg.opponent_uuid == available.player.id) 
-                return msg.opponent_uuid = decrypt(index)
-        })
+        const opponent_uuid = findAvailable(msg.opponent_uuid, false) as string
 
         context.send("MARKED",{
             collumn:msg.collumn,
             position:msg.position,
             mark:msg.mark
-        },msg.opponent_uuid)
+        }, opponent_uuid)
     })
 }

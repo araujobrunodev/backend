@@ -17,6 +17,8 @@ interface AvailableList {
     }
 }
 
+export type playerAvailable = PlayerAvailable
+
 function addPlayerAvailable (player: PlayerAvailable) {
     if (player.nick.length == 0 || player.id.length == 0) return;
 

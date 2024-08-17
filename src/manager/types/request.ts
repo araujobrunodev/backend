@@ -4,8 +4,6 @@ type ExamplePayload = Payload<"BROADCAST", string>
 
 type Connect = Payload<"CONNECT",{player:string}> 
 
-type Invite = Payload<"INVITE",{uuid:string}>
-
 type Accepted = Payload<"ACCEPTED",{uuid: string}>
 
 type Denied = Payload<"DENIED",{uuid: string}>
@@ -31,12 +29,11 @@ type changePermission = Payload<"change-permission", {
 
 type availableList = Payload<"available-list", {id:string}>
 
-type inviteStranger = Payload<"invite-stranger",{strangerID: string, yourUUID: string, yourNick: string}>
+type invite = Payload<"invite",{strangerID: string, yourUUID: string, yourNick: string}>
 
 export type Requests = QueuePayloads<[
   ExamplePayload,
   Connect,
-  Invite,
   Accepted,
   Denied,
   Pong,
@@ -46,6 +43,6 @@ export type Requests = QueuePayloads<[
   Tie,
   changePermission,
   availableList,
-  inviteStranger,
+  invite,
   InviteByRandomRoom
 ]>

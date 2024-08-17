@@ -1,47 +1,30 @@
 import Manager from "@/manager";
-import { listOfAvailable } from "@/model/listOfAvailable";
+import { playerAvailable } from "@/model/listOfAvailable";
 import findRoom from "@/model/match/findRoom";
-import decrypt from "@/model/tools/decrypt";
+import findAvailable from "@/model/tools/findAvailable";
 import findPlayer from "@/model/tools/player";
 import { playerProperty } from "@/types/playerType";
 import { roomContainer } from "@/types/roomType";
 
 export default (manager: Manager) => {
     manager.on("TURN", (context, msg) => {
-        let currentRoom = findRoom(msg.uuid) as roomContainer;
-        let player:playerProperty;
-        let begin:boolean;
-        let playerIsAvailable = false;
+        let currentRoom = findRoom(msg.opponent_uuid) as roomContainer;
+        let player:playerAvailable;
+        let begin = false;
 
         if (currentRoom == undefined) return;
-
-        currentRoom.room.map((uuid) => {
-            let Player = findPlayer(uuid) as playerProperty;
-
-            if (Player == undefined) return;
-
-            playerIsAvailable = true;
-            
-            if (!Player.available) return playerIsAvailable = false;
-        })
-
-        if (!playerIsAvailable) return;
 
         switch (msg.value) {
             case "begin":
                 let prizeDraw = Math.round(Math.random() * (currentRoom.room.length - 1));
-                player = findPlayer(currentRoom.room[prizeDraw]) as playerProperty;
+                player = findAvailable(currentRoom.room[prizeDraw], true) as playerAvailable
+                
                 begin = true;
                 break;
 
             case "change":
-                listOfAvailable.forEach((available, index) => {
-                    if (msg.opponent_uuid == available.player.id) 
-                        return msg.opponent_uuid = decrypt(index)
-                })
-
-                player = findPlayer(msg.opponent_uuid) as playerProperty;
-                if (player == undefined) console.warn("player return undefined","uuid:",msg.opponent_uuid);
+                player = findAvailable(msg.opponent_uuid, true) as playerAvailable
+                
                 begin = false;
                 break;
         }
@@ -50,14 +33,14 @@ export default (manager: Manager) => {
             let  NewBegin = false;
             
             if (begin == true) {
-                if (player.uuid == uuid) NewBegin = begin 
+                if (player.id == uuid) NewBegin = begin 
             }
 
-            manager.send("TURN",{
-                nick:player.name,
-                value:"your turn",
-                beginningOfTheGame:NewBegin
-            },uuid)
+            context.send("TURN",{
+                nick: player.nick,
+                value: "your turn",
+                beginningOfTheGame: NewBegin
+            }, findAvailable(uuid,false) as string)
         })
     })
 }

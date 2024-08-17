@@ -5,41 +5,23 @@ import changeRoom from "@/model/match/changeRoom";
 import { playerProperty } from "@/types/playerType";
 import findRoom from "@/model/match/findRoom";
 import { roomContainer } from "@/types/roomType";
-import { listOfAvailable } from "@/model/listOfAvailable";
-import decrypt from "@/model/tools/decrypt";
+import findAvailable from "@/model/tools/findAvailable";
 
 export default (manager: Manager) => {
     manager.on("ACCEPTED", (context, msg) => {
-        listOfAvailable.forEach((available, index) => {
-            if (msg.uuid == available.player.id) 
-                return msg.uuid = decrypt(index)
-        })
+        let myID = findAvailable(context.originId, false) as string
+        let strangerID = findAvailable(msg.uuid,false) as string
 
         let player1 = findPlayer(context.originId) as playerProperty;
-        let player2 = findPlayer(msg.uuid) as playerProperty;
+        let room = findRoom(myID) as roomContainer;
 
-        if (player1 != undefined && player2 != undefined) {
-            let room = findRoom(player1.uuid) as roomContainer;
+        if (room === undefined || changeRoom(myID) == false) {
+            createRoom(myID, msg.uuid);
+        } 
 
-            if (!player1.available || !player2.available) return;
-
-            if (room === undefined) {
-                createRoom(context.originId, msg.uuid);
-
-                context.send("ACCEPTED", {
-                    nick: player1.name,
-                    uuid: player1.uuid,
-                }, player2.uuid);
-            } else {
-                if (changeRoom(player1.uuid) == true) {
-                    createRoom(context.originId, msg.uuid);
-
-                    context.send("ACCEPTED", {
-                        nick: player1.name,
-                        uuid: player1.uuid
-                    }, player2.uuid);
-                }
-            }
-        }
+        context.send("ACCEPTED", {
+            nick: player1.name,
+            uuid: myID,
+        }, strangerID);
     })
 }

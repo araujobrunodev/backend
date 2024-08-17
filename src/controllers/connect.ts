@@ -4,6 +4,7 @@ import PingOrPongReceive from "@/types/pingReceive";
 import tempPlayer from "@/types/tempPlayer";
 import { Clients } from "@/model/clients";
 import { createRandom } from "@/model/tools/createRandom";
+import { addPlayerAvailable } from "@/model/listOfAvailable";
 
 export default (manager:Manager) => {
     manager.on("CONNECT",(context,msg) => {
@@ -36,6 +37,13 @@ export default (manager:Manager) => {
             ping:false,
             pong:false,
             uuid:context.originId
+        })
+
+        addPlayerAvailable({
+            id: context.originId,
+            inviteStrangers: false,
+            nick: nick,
+            randomRoom: false
         })
     })
 }
