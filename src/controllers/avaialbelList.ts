@@ -15,6 +15,7 @@ export default (manager: Manager) => {
             const uuid = decrypt(index)
 
             if (uuid == msg.id) return;
+            if (perfil.player.hadRoom) return;
 
             if (perfil.player.inviteStrangers) {
                 availables.push({

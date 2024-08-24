@@ -6,6 +6,7 @@ interface PlayerAvailable {
     id: string,
     inviteStrangers: boolean,
     randomRoom: boolean,
+    hadRoom: boolean
 }
 
 interface AvailableList {
@@ -29,7 +30,8 @@ function addPlayerAvailable (player: PlayerAvailable) {
             id: player.id,
             inviteStrangers: player.inviteStrangers,
             nick: player.nick,
-            randomRoom: player.randomRoom
+            randomRoom: player.randomRoom,
+            hadRoom: false
         }, 
         deepKey: {
             iv: Buffer.alloc(16),

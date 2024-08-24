@@ -5,12 +5,6 @@ import decrypt from "@/model/tools/decrypt";
 export default (manager: Manager) => {
     manager.on("invite-by-random-room", (context, msg) => {
         const blockPlayers = msg.blockPlayers;
-        // id da origin
-        // lista de disponiveis
-        // bloqueio de jogadores já convidados
-        // bloqueio do auto convite
-        // convidar 
-        // enviar resposta pro jogador junto com blockplayers
 
         let strangerPlayerIdCrypt = ""
         let strangerPlayerIdDecrypt = ""
@@ -30,7 +24,7 @@ export default (manager: Manager) => {
             const playerID = perfil.player.id
             let existedInBlockPlayers = false
             
-            if (perfil.player.randomRoom) {
+            if (perfil.player.randomRoom && !perfil.player.hadRoom) {
                 blockPlayers.forEach(blockPlayer => {
                     if (blockPlayer == playerID) return existedInBlockPlayers = true
                 })
