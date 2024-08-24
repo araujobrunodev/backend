@@ -43,7 +43,8 @@ export default (manager:Manager) => {
             id: context.originId,
             inviteStrangers: false,
             nick: nick,
-            randomRoom: false
+            randomRoom: false,
+            hadRoom: false
         })
     })
 }
